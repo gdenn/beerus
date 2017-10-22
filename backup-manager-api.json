@@ -50,6 +50,37 @@
             "description" : "authentication invalid"
           }
         }
+      },
+      "get" : {
+        "summary" : "return list of brokers",
+        "operationId" : "ListBrokers",
+        "tags" : [ "brokers" ],
+        "parameters" : null,
+        "responses" : {
+          "200" : {
+            "description" : "list of brokers",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/Broker"
+              }
+            }
+          }
+        }
+      }
+    },
+    "definitions" : {
+      "Broker" : {
+        "type" : "object",
+        "allOf" : [ {
+          "required" : [ "uuid" ],
+          "properties" : {
+            "uuid" : {
+              "type" : "string",
+              "format" : "uuid"
+            }
+          }
+        } ]
       }
     }
   },
