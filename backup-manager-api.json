@@ -1,3 +1,59 @@
 {
-  "swagger" : "2.0"
+  "swagger" : "2.0",
+  "info" : {
+    "version" : "1.0.0",
+    "title" : "beerus backup manager API",
+    "license" : {
+      "name" : "MIT"
+    }
+  },
+  "consumes" : [ "application/json" ],
+  "produces" : [ "application/json" ],
+  "paths" : {
+    "/brokers" : {
+      "post" : {
+        "summary" : "create broker at manager",
+        "operationId" : "CreateBroker",
+        "tags" : [ "brokers" ],
+        "parameters" : [ {
+          "name" : "broker_uuid",
+          "in" : "query",
+          "description" : "UUID of the Open Service Broker",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "address",
+          "in" : "query",
+          "description" : "IP address of the Open Service Broker",
+          "required" : true,
+          "type" : "string",
+          "format" : "ip"
+        }, {
+          "name" : "username",
+          "in" : "query",
+          "description" : "Username for authenticating against Open Service Broker",
+          "type" : "string",
+          "format" : "string"
+        }, {
+          "name" : "password",
+          "in" : "query",
+          "description" : "Password for authenticating against Open Service Broker",
+          "type" : "string",
+          "format" : "password"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "broker created"
+          },
+          "404" : {
+            "description" : "authentication invalid"
+          }
+        }
+      }
+    }
+  },
+  "host" : "virtserver.swaggerhub.com",
+  "basePath" : "/gdenn4/beerus-manager/1.0.0",
+  "schemes" : [ "https", "http" ]
 }
