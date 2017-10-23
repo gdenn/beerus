@@ -5,11 +5,11 @@
     "title" : "beerus backup manager API",
     "license" : {
       "name" : "MIT"
-    },
-    "host" : "beerus_manager.swagger.io",
-    "basePath" : "/v1",
-    "schemes" : [ "http", "https" ]
+    }
   },
+  "schemes" : [ "https", "http" ],
+  "host" : "virtserver.swaggerhub.com",
+  "basePath" : "/gdenn4/beerus-manager/1.0.0",
   "consumes" : [ "application/json" ],
   "produces" : [ "application/json" ],
   "paths" : {
@@ -466,8 +466,5 @@
         }
       } ]
     }
-  },
-  "host" : "virtserver.swaggerhub.com",
-  "basePath" : "/gdenn4/beerus-manager/1.0.0",
-  "schemes" : [ "https", "http" ]
+  }
 }
