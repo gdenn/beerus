@@ -7,9 +7,6 @@
       "name" : "MIT"
     }
   },
-  "host" : "virtserver.swaggerhub.com",
-  "basePath" : "/gdenn4/beerus-manager/1.0.0",
-  "schemes" : [ "https", "http" ],
   "consumes" : [ "application/json" ],
   "produces" : [ "application/json" ],
   "paths" : {
@@ -466,5 +463,8 @@
         }
       } ]
     }
-  }
+  },
+  "host" : "virtserver.swaggerhub.com",
+  "basePath" : "/gdenn4/beerus-manager/1.0.0",
+  "schemes" : [ "https", "http" ]
 }
