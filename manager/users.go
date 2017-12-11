@@ -8,6 +8,8 @@ import (
 	"os"
 	"time"
 
+	"github.com/lib/pq"
+
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -41,28 +43,94 @@ type User struct {
 // Save user to database and replace Password
 // by hash
 func (u *UserTable) Save(user *User) error {
-	panic("t")
+	s := "INSERT INTO users(name, password, brokerAccess, agentAcccess, createdAt, updatedAt) VALUES($1, $2, $3, $4, $5, $6)"
+	stmt, err := u.db.Prepare(s)
+	if err != nil {
+		panic(err)
+	}
+	stmt.Exec(user.Name, user.Password, pq.Array(user.BrokerAccess), pq.Array(user.AgentAccess), time.Now(), time.Now())
+	return nil
 }
 
 // DeleteUserByID deletes user given by id from
 // db
 func (u *UserTable) DeleteUserByID(id int64) error {
-	panic("t")
+	stmt, err := u.db.Prepare("DELETE FROM users WHERE id=$1")
+	if err != nil {
+		panic(err)
+	}
+	stmt.Exec(id)
+	return nil
 }
 
 // UserByID returns user with id from db
 func (u *UserTable) UserByID(id int64) (*User, error) {
-	panic("t")
+	var ur User
+	err := u.db.QueryRow("SELECT * FROM users WHERE id = $1", id).Scan(
+		&ur.ID,
+		&ur.Name,
+		&ur.Password,
+		&ur.BrokerAccess,
+		&ur.AgentAccess,
+		&ur.CreatedAt,
+		&ur.UpdatedAt,
+	)
+	if err != nil {
+		panic(err)
+	}
+
+	return &ur, nil
 }
 
 // UserByName returns user with name from db
 func (u *UserTable) UserByName(name string) (*User, error) {
-	panic("t")
+	var ur User
+	err := u.db.QueryRow("SELECT * FROM users WHERE Name = $1", name).Scan(
+		&ur.ID,
+		&ur.Name,
+		&ur.Password,
+		&ur.BrokerAccess,
+		&ur.AgentAccess,
+		&ur.CreatedAt,
+		&ur.UpdatedAt,
+	)
+	if err != nil {
+		panic(err)
+	}
+
+	return &ur, nil
 }
 
 // AllUsers returns all users from db
 func (u *UserTable) AllUsers() (*[]User, error) {
-	panic("t")
+	var usrs []User
+	rows, err := u.db.Query("SELECT * FROM users")
+
+	if err != nil {
+		panic(err)
+	}
+
+	for rows.Next() {
+		var ur User
+
+		err := rows.Scan(
+			&ur.ID,
+			&ur.Name,
+			&ur.Password,
+			&ur.BrokerAccess,
+			&ur.AgentAccess,
+			&ur.CreatedAt,
+			&ur.UpdatedAt,
+		)
+
+		if err != nil {
+			panic(err)
+		}
+
+		usrs = append(usrs, ur)
+	}
+
+	return &usrs, nil
 }
 
 // UserRequest holding user information for new

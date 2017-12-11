@@ -5,7 +5,9 @@ services:
     image: postgres
     restart: always
     environment:
+      POSTGRES_USER: manager
       POSTGRES_PASSWORD: example
+      POSTGRES_DB: manager_db
 
   adminer:
     image: adminer
@@ -15,11 +17,10 @@ services:
 
   manager-api:
     build: ./manager/
+    depends_on:
+      - db
     ports:
       - 8090:8090
     environment:
-      MANAGER_PORT: 8090
-      MANAGER_DB: manager
-      DB_URL: db
-      DB_USER: root
-      DB_PASSWORD: example
+      PORT: 8090
+      CONNECTION_STRING: postgres://manager:example@db/manager_db
