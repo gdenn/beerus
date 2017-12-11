@@ -1,11 +1,13 @@
-package 
+package manager
 
 import (
-	"net/http"
 	"fmt"
+	"net/http"
+
 	"github.com/gorilla/mux"
 )
 
+// Route at backup manager
 type Route struct {
 	Name        string
 	Method      string
@@ -13,8 +15,11 @@ type Route struct {
 	HandlerFunc http.HandlerFunc
 }
 
+// Routes registered at backup manager
 type Routes []Route
 
+// NewRouter creates an instance of mux.Router and registers
+// all routes (see swagger doc in /api)
 func NewRouter() *mux.Router {
 	router := mux.NewRouter().StrictSlash(true)
 	for _, route := range routes {
@@ -32,6 +37,7 @@ func NewRouter() *mux.Router {
 	return router
 }
 
+// Index the test route to validate your manager is running
 func Index(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "Hello World!")
 }
@@ -197,5 +203,4 @@ var routes = Routes{
 		"/beerus-manager/1.0.0/users",
 		ListUser,
 	},
-
 }

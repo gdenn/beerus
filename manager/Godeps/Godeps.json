@@ -1,0 +1,12 @@
+{
+	"ImportPath": "github.com/beerus/manager-api",
+	"GoVersion": "go1.9",
+	"GodepVersion": "v79",
+	"Deps": [
+		{
+			"ImportPath": "github.com/gorilla/mux",
+			"Comment": "v1.6.0-4-gc572efe",
+			"Rev": "c572efe4294d5a0e354e01f2ddaa8b1f0c3cb3dd"
+		}
+	]
+}

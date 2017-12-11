@@ -1,0 +1,25 @@
+version: '3.1'
+
+services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: example
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+
+  manager-api:
+    build: ./manager/
+    ports:
+      - 8090:8090
+    environment:
+      MANAGER_PORT: 8090
+      MANAGER_DB: manager
+      DB_URL: db
+      DB_USER: root
+      DB_PASSWORD: example
