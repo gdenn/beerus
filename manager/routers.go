@@ -25,7 +25,7 @@ func NewRouter() *mux.Router {
 	for _, route := range routes {
 		var handler http.Handler
 		handler = route.HandlerFunc
-		handler = Logger(handler, route.Name)
+		handler = AddContext(Logger(handler, route.Name))
 
 		router.
 			Methods(route.Method).
@@ -173,34 +173,34 @@ var routes = Routes{
 		"CreateUser",
 		"POST",
 		"/beerus-manager/1.0.0/users",
-		CreateUser,
+		AddUserTable(CreateUser),
 	},
 
 	Route{
 		"DeleteUserByID",
 		"DELETE",
 		"/beerus-manager/1.0.0/users/{user_uuid}",
-		DeleteUserByID,
+		AddUserTable(DeleteUserByID),
 	},
 
 	Route{
 		"GetUser",
 		"GET",
 		"/beerus-manager/1.0.0/users/{user_uuid}",
-		GetUser,
+		AddUserTable(GetUser),
 	},
 
 	Route{
 		"GetUserByName",
 		"GET",
 		"/beerus-manager/1.0.0/users/username/{username}",
-		GetUserByName,
+		AddUserTable(GetUserByName),
 	},
 
 	Route{
 		"ListUser",
 		"GET",
 		"/beerus-manager/1.0.0/users",
-		ListUser,
+		AddUserTable(ListUser),
 	},
 }

@@ -1,5 +1,5 @@
 {
-	"ImportPath": "github.com/beerus/manager-api",
+	"ImportPath": "github.com/beerus/manager",
 	"GoVersion": "go1.9",
 	"GodepVersion": "v79",
 	"Deps": [

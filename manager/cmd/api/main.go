@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/beerus/manager"
 )
@@ -12,5 +13,7 @@ func main() {
 
 	router := manager.NewRouter()
 
-	log.Fatal(http.ListenAndServe(":8080", router))
+	manager.InitDB(os.Getenv("CONN_STRING"))
+
+	log.Fatal(http.ListenAndServe(":"+os.Getenv("PORT"), router))
 }
