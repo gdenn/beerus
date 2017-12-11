@@ -1,5 +1,7 @@
 package manager
 
+//go:generate mockgen -destination=mocks/mock_usertable.go -package=mocks github.com/beerus/manager IUserTable
+
 import (
 	"database/sql"
 	"encoding/json"
@@ -135,7 +137,7 @@ func (u *UserTable) AllUsers() (*[]User, error) {
 
 // UserRequest holding user information for new
 // user in db
-type UserRequest struct {
+type CreateUserRequest struct {
 	Name         string
 	Password     string
 	BrokerAccess []int64
@@ -173,7 +175,7 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 	}
 
 	decoder := json.NewDecoder(r.Body)
-	var ur UserRequest
+	var ur CreateUserRequest
 	err := decoder.Decode(&ur)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
